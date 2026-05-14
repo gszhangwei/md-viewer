@@ -27,18 +27,20 @@ PIP_INDEX_URL=https://your.nexus.example/repository/pypi-proxy/simple/ ./install
 
 ## 使用
 
+`md-viewer` 默认监听 `127.0.0.1:4000`，并自动在浏览器中打开。
+
 ```bash
-# 浏览整个目录
+# 使用默认参数浏览整个目录
 md-viewer ~/notes
 
 # 打开单个文件（以其父目录作为根）
 md-viewer ~/notes/some-document.md
 
-# 默认监听 127.0.0.1:4000；自动在浏览器中打开
+# 覆盖默认值：自定义端口、绑定所有网卡、不自动打开浏览器
 md-viewer ./docs --port 5000 --host 0.0.0.0 --no-browser
 ```
 
-启动后浏览器自动跳到 `http://127.0.0.1:4000/`。
+使用默认参数时，启动后浏览器会自动跳到 `http://127.0.0.1:4000/`。
 
 ## 功能
 

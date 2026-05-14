@@ -27,18 +27,20 @@ PIP_INDEX_URL=https://your.nexus.example/repository/pypi-proxy/simple/ ./install
 
 ## Usage
 
+By default, `md-viewer` listens on `127.0.0.1:4000` and opens your browser automatically.
+
 ```bash
-# Browse a whole directory
+# Browse a whole directory (uses defaults)
 md-viewer ~/notes
 
 # Open a single file (uses its parent directory as the root)
 md-viewer ~/notes/some-document.md
 
-# Defaults to 127.0.0.1:4000 and opens your browser automatically
+# Override defaults: custom port, bind to all interfaces, skip auto-opening the browser
 md-viewer ./docs --port 5000 --host 0.0.0.0 --no-browser
 ```
 
-After startup, your browser will automatically open `http://127.0.0.1:4000/`.
+When the defaults are used, your browser will open `http://127.0.0.1:4000/` after startup.
 
 ## Features
 
