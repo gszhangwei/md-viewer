@@ -1,0 +1,24 @@
+/* Pygments syntax highlighting. Placeholder — will be replaced by `pygmentize -S default -f html -a .highlight` post-install. */
+.highlight .c, .highlight .c1, .highlight .cm, .highlight .cs { color: #8a8a8a; font-style: italic; }
+.highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kt { color: #0066b8; font-weight: 600; }
+.highlight .s, .highlight .s1, .highlight .s2, .highlight .se, .highlight .sb { color: #a31515; }
+.highlight .n, .highlight .nb { color: inherit; }
+.highlight .nf, .highlight .fm { color: #6f42c1; }
+.highlight .nc { color: #267f99; font-weight: 600; }
+.highlight .o, .highlight .ow { color: #6a6a6a; }
+.highlight .mi, .highlight .mf, .highlight .mh, .highlight .mb { color: #098658; }
+.highlight .nt { color: #1d4ed8; }
+.highlight .nv, .highlight .vi { color: #001080; }
+.highlight .err { color: #a31515; background: #fff1f0; }
+.highlight pre { margin: 0; }
+
+@media (prefers-color-scheme: dark) {
+  .highlight .c, .highlight .c1, .highlight .cm, .highlight .cs { color: #6f6e6a; }
+  .highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kt { color: #82aaff; }
+  .highlight .s, .highlight .s1, .highlight .s2, .highlight .se, .highlight .sb { color: #f7c08a; }
+  .highlight .nf, .highlight .fm { color: #c792ea; }
+  .highlight .nc { color: #66d9ef; }
+  .highlight .mi, .highlight .mf, .highlight .mh, .highlight .mb { color: #a3d977; }
+  .highlight .nt { color: #82aaff; }
+  .highlight .err { color: #ff8a8a; background: #3a1818; }
+}

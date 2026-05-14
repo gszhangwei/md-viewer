@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>md-viewer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='pygments.css') }}" />
+</head>
+<body data-base="{{ base_dir }}" data-initial="{{ initial_file }}">
+  <aside id="sidebar">
+    <div class="sidebar-head">
+      <div class="brand">md-viewer</div>
+      <div class="base-path" title="{{ base_dir }}">{{ base_dir }}</div>
+    </div>
+    <div class="sidebar-search">
+      <input id="file-filter" type="search" placeholder="Filter files…" autocomplete="off" />
+    </div>
+    <nav id="file-tree" aria-label="Files"></nav>
+  </aside>
+
+  <main id="main">
+    <header id="topbar">
+      <div class="crumbs" id="crumbs">Select a file</div>
+      <div class="actions">
+        <input id="content-search" type="search" placeholder="Find in document…  (Ctrl/⌘ K)" />
+        <button id="toggle-toc" class="btn" title="Toggle TOC">TOC</button>
+        <span id="status" class="status" aria-live="polite"></span>
+      </div>
+    </header>
+
+    <div id="layout">
+      <article id="content" class="markdown-body">
+        <div class="empty">
+          <h2>Welcome</h2>
+          <p>Pick a Markdown file from the left to render it here.</p>
+          <p class="hint">Files reload automatically when you save them.</p>
+        </div>
+      </article>
+      <aside id="toc-panel" aria-label="Table of contents">
+        <div class="toc-head">On this page</div>
+        <div id="toc"></div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="{{ url_for('static', filename='viewer.js') }}"></script>
+</body>
+</html>

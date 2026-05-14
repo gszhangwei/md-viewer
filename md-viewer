@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+VENV_PY="$SCRIPT_DIR/.venv/bin/python"
+
+if [[ ! -x "$VENV_PY" ]]; then
+  echo "md-viewer: virtualenv not found. Run $SCRIPT_DIR/install.sh first." >&2
+  exit 1
+fi
+
+exec "$VENV_PY" "$SCRIPT_DIR/md_viewer.py" "$@"
