@@ -2,33 +2,37 @@
 
 A local Markdown preview tool: renders `.md` files from any directory in your browser, with a file tree on the left, a TOC on the right, and automatic refresh when documents are saved.
 
-A general-purpose tool, placed at `~/project/md-viewer/` so it can be used for any project.
+A general-purpose, standalone tool — clone it anywhere on your machine and use it for any project.
 
 ---
 
 ## Installation (one-time)
 
-Dependencies are installed via Origin's internal Nexus pip proxy.
-
 ```bash
-~/project/md-viewer/install.sh
+git clone https://github.com/gszhangwei/md-viewer.git
+cd md-viewer
+./install.sh
 ```
 
-The script creates a virtual environment at `~/project/md-viewer/.venv` and installs the dependencies (Flask, Markdown, Pygments, pymdown-extensions).
+The script creates a virtual environment at `.venv/` inside the project directory and installs the dependencies (Flask, Markdown, Pygments, pymdown-extensions) from PyPI. If you need to use a custom pip index (e.g. an internal proxy), set `PIP_INDEX_URL` before running the script:
 
-> After installation, it's recommended to add `md-viewer` to your PATH:
+```bash
+PIP_INDEX_URL=https://your.nexus.example/repository/pypi-proxy/simple/ ./install.sh
+```
+
+> After installation, it's recommended to add `md-viewer` to your PATH (replace the source path with wherever you cloned the repo):
 > ```bash
-> ln -s ~/project/md-viewer/md-viewer ~/bin/md-viewer    # or /usr/local/bin
+> ln -s "$(pwd)/md-viewer" ~/bin/md-viewer    # or /usr/local/bin
 > ```
 
 ## Usage
 
 ```bash
 # Browse a whole directory
-md-viewer ~/.ssh/home-audit-microsite/.claude/plans
+md-viewer ~/notes
 
 # Open a single file (uses its parent directory as the root)
-md-viewer ~/.ssh/home-audit-microsite/.claude/plans/AS-IS-home-audit-microsite-2026-05-14.md
+md-viewer ~/notes/some-document.md
 
 # Defaults to 127.0.0.1:4000 and opens your browser automatically
 md-viewer ./docs --port 5000 --host 0.0.0.0 --no-browser
@@ -64,7 +68,7 @@ md-viewer [PATH] [--port 4000] [--host 127.0.0.1] [--no-browser]
 
 ```
 md-viewer/
-├── install.sh          # Installs dependencies into .venv via Origin Nexus
+├── install.sh          # Creates .venv and installs dependencies (honours $PIP_INDEX_URL)
 ├── md-viewer           # Entry-point shell wrapper
 ├── md_viewer.py        # Flask app: /, /api/tree, /api/render, /api/mtime
 ├── requirements.txt
@@ -78,15 +82,18 @@ md-viewer/
 
 ## Try it out
 
-Open the AS-IS document that originally motivated this tool:
+Point it at any directory containing Markdown files — for example a folder of project notes or design docs:
 
 ```bash
-md-viewer ~/.ssh/home-audit-microsite/.claude/plans
-# In the browser, click AS-IS-home-audit-microsite-2026-05-14.md
+md-viewer ~/notes
+# In the browser, pick any .md file from the left-side tree
 ```
 
 ## Uninstall
 
+Delete the cloned directory (and the symlink, if you created one):
+
 ```bash
-rm -rf ~/project/md-viewer
+rm -rf /path/to/md-viewer
+rm -f ~/bin/md-viewer
 ```

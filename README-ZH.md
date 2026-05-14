@@ -2,33 +2,37 @@
 
 一个本地 Markdown 预览工具：在浏览器里渲染任意目录下的 `.md` 文件，左侧文件树，右侧 TOC，文档保存后自动刷新。
 
-通用工具，放在 `~/project/md-viewer/`，可对任何项目使用。
+通用、独立的工具——克隆到机器上任意目录即可，可对任何项目使用。
 
 ---
 
 ## 安装（一次性）
 
-依赖通过 Origin 内部 Nexus pip proxy 安装。
-
 ```bash
-~/project/md-viewer/install.sh
+git clone https://github.com/gszhangwei/md-viewer.git
+cd md-viewer
+./install.sh
 ```
 
-脚本会在 `~/project/md-viewer/.venv` 创建虚拟环境并装好依赖（Flask、Markdown、Pygments、pymdown-extensions）。
+脚本会在项目目录下的 `.venv/` 创建虚拟环境，并从 PyPI 安装依赖（Flask、Markdown、Pygments、pymdown-extensions）。如果你需要走自定义的 pip 源（比如内网 proxy），在执行前设置 `PIP_INDEX_URL` 即可：
 
-> 装好后建议把 `md-viewer` 加入 PATH：
+```bash
+PIP_INDEX_URL=https://your.nexus.example/repository/pypi-proxy/simple/ ./install.sh
+```
+
+> 装好后建议把 `md-viewer` 加入 PATH（把源路径替换成你实际克隆的目录）：
 > ```bash
-> ln -s ~/project/md-viewer/md-viewer ~/bin/md-viewer    # 或者 /usr/local/bin
+> ln -s "$(pwd)/md-viewer" ~/bin/md-viewer    # 或者 /usr/local/bin
 > ```
 
 ## 使用
 
 ```bash
 # 浏览整个目录
-md-viewer ~/.ssh/home-audit-microsite/.claude/plans
+md-viewer ~/notes
 
 # 打开单个文件（以其父目录作为根）
-md-viewer ~/.ssh/home-audit-microsite/.claude/plans/AS-IS-home-audit-microsite-2026-05-14.md
+md-viewer ~/notes/some-document.md
 
 # 默认监听 127.0.0.1:4000；自动在浏览器中打开
 md-viewer ./docs --port 5000 --host 0.0.0.0 --no-browser
@@ -64,7 +68,7 @@ md-viewer [PATH] [--port 4000] [--host 127.0.0.1] [--no-browser]
 
 ```
 md-viewer/
-├── install.sh          # 用 Origin Nexus 装依赖到 .venv
+├── install.sh          # 创建 .venv 并安装依赖（支持 $PIP_INDEX_URL 自定义 pip 源）
 ├── md-viewer           # 入口 shell wrapper
 ├── md_viewer.py        # Flask app: /, /api/tree, /api/render, /api/mtime
 ├── requirements.txt
@@ -78,15 +82,18 @@ md-viewer/
 
 ## 测试一下
 
-打开一开始触发这个工具的 AS-IS 文档：
+让它指向任意一个包含 Markdown 文件的目录——比如项目笔记或设计文档的文件夹：
 
 ```bash
-md-viewer ~/.ssh/home-audit-microsite/.claude/plans
-# 浏览器里点 AS-IS-home-audit-microsite-2026-05-14.md
+md-viewer ~/notes
+# 在浏览器里从左侧文件树点开任意一份 .md 即可
 ```
 
 ## 卸载
 
+删除克隆的目录（以及之前创建的软链接，如果有的话）：
+
 ```bash
-rm -rf ~/project/md-viewer
+rm -rf /path/to/md-viewer
+rm -f ~/bin/md-viewer
 ```
